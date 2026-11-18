@@ -1,0 +1,751 @@
+{
+  "schema_version": 2,
+  "status": "draft",
+  "weight_version": null,
+  "budget_mtco2e": 40000,
+  "allowance_unit": "MtCO2e",
+  "period": {
+    "start_year": 2026,
+    "end_year": 2050,
+    "block_end_years": [
+      2030,
+      2035,
+      2040,
+      2045,
+      2050
+    ]
+  },
+  "reporting_rate_basis": "annual-rate",
+  "relative_gap_basis": "absolute-emissions",
+  "reference": {
+    "calibration_emissions_reference": null,
+    "adjustment_reference": null,
+    "food_reference_year": null
+  },
+  "participant_ids": [
+    "ARG",
+    "BRA",
+    "CAN",
+    "CHL",
+    "CHN",
+    "CZE",
+    "DEN",
+    "DOM",
+    "ETH",
+    "FIN",
+    "GRE",
+    "GUA",
+    "IND",
+    "IRE",
+    "MEX",
+    "NEP",
+    "NOR",
+    "PAK",
+    "POL",
+    "POR",
+    "RUS",
+    "R_ASE",
+    "R_ASP",
+    "R_CAS",
+    "R_CSA",
+    "R_EAF",
+    "R_EEU",
+    "R_MEA",
+    "R_NEU",
+    "R_SAF",
+    "R_SIS",
+    "R_WAF",
+    "SAF",
+    "SWE",
+    "TUR",
+    "UK",
+    "USA",
+    "UZB"
+  ],
+  "weights": [
+    {
+      "participant_id": "ARG",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "ARG",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "ARG",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "BRA",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "BRA",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "BRA",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CAN",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CAN",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CAN",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CHL",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CHL",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CHL",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CHN",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CHN",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CHN",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CZE",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CZE",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "CZE",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "DEN",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "DEN",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "DEN",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "DOM",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "DOM",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "DOM",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "ETH",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "ETH",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "ETH",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "FIN",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "FIN",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "FIN",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "GRE",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "GRE",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "GRE",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "GUA",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "GUA",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "GUA",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "IND",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "IND",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "IND",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "IRE",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "IRE",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "IRE",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "MEX",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "MEX",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "MEX",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "NEP",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "NEP",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "NEP",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "NOR",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "NOR",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "NOR",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "PAK",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "PAK",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "PAK",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "POL",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "POL",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "POL",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "POR",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "POR",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "POR",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "RUS",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "RUS",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "RUS",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_ASE",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_ASE",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_ASE",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_ASP",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_ASP",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_ASP",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_CSA",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_CSA",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_CSA",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_EAF",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_EAF",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_EAF",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_EEU",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_EEU",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_EEU",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_MEA",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_MEA",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_MEA",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_NEU",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_NEU",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_NEU",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_SAF",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_SAF",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_SAF",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_SIS",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_SIS",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_SIS",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_WAF",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_WAF",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "R_WAF",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "SAF",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "SAF",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "SAF",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "SWE",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "SWE",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "SWE",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "TUR",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "TUR",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "TUR",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "UK",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "UK",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "UK",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "USA",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "USA",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "USA",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "UZB",
+      "approach": "AP",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "UZB",
+      "approach": "HR",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    },
+    {
+      "participant_id": "UZB",
+      "approach": "EQ",
+      "FS_pct": null,
+      "FS_adj_pct": null
+    }
+  ]
+}
