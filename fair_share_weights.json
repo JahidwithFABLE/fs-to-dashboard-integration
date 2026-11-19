@@ -1,0 +1,756 @@
+{
+  "schema_version": 2,
+  "status": "released",
+  "weight_version": "scenathon-2026-fs-38-v1",
+  "budget_mtco2e": 40000,
+  "allowance_unit": "MtCO2e",
+  "period": {
+    "start_year": 2026,
+    "end_year": 2050,
+    "block_end_years": [
+      2030,
+      2035,
+      2040,
+      2045,
+      2050
+    ]
+  },
+  "reporting_rate_basis": "annual-rate",
+  "relative_gap_basis": "absolute-emissions",
+  "reference": {
+    "calibration_emissions_reference": "Current Trends | before trade adjustment | Scenathon 2026-27 | 38 corrected initial Current Trends submissions | before trade",
+    "adjustment_reference": "Historical 2020 FAO production, imports, exports and historical weighted yield gap | ND-GAIN 2022 | Scenathon 2026-27 | 38 corrected initial Current Trends submissions | before trade",
+    "food_reference_year": 2020,
+    "base_scoring_member_counts": {
+      "AP": 156,
+      "HR": 156,
+      "EQ": 177
+    }
+  },
+  "participant_ids": [
+    "ARG",
+    "BRA",
+    "CAN",
+    "CHL",
+    "CHN",
+    "CZE",
+    "DEN",
+    "DOM",
+    "ETH",
+    "FIN",
+    "GRE",
+    "GUA",
+    "IND",
+    "IRE",
+    "MEX",
+    "NEP",
+    "NOR",
+    "PAK",
+    "POL",
+    "POR",
+    "RUS",
+    "R_ASE",
+    "R_ASP",
+    "R_CAS",
+    "R_CSA",
+    "R_EAF",
+    "R_EEU",
+    "R_MEA",
+    "R_NEU",
+    "R_SAF",
+    "R_SIS",
+    "R_WAF",
+    "SAF",
+    "SWE",
+    "TUR",
+    "UK",
+    "USA",
+    "UZB"
+  ],
+  "weights": [
+    {
+      "participant_id": "ARG",
+      "approach": "AP",
+      "FS_pct": 0.18740012944955795,
+      "FS_adj_pct": 0.14117214557185698
+    },
+    {
+      "participant_id": "ARG",
+      "approach": "HR",
+      "FS_pct": 1.0158332755183013,
+      "FS_adj_pct": 0.9882196227862636
+    },
+    {
+      "participant_id": "ARG",
+      "approach": "EQ",
+      "FS_pct": 0.6183675521049155,
+      "FS_adj_pct": 0.5930810447255593
+    },
+    {
+      "participant_id": "BRA",
+      "approach": "AP",
+      "FS_pct": 4.713478126885112,
+      "FS_adj_pct": 4.677869553774995
+    },
+    {
+      "participant_id": "BRA",
+      "approach": "HR",
+      "FS_pct": 4.990452309759136,
+      "FS_adj_pct": 4.969182016537016
+    },
+    {
+      "participant_id": "BRA",
+      "approach": "EQ",
+      "FS_pct": 2.8103205717041195,
+      "FS_adj_pct": 2.7908428361165285
+    },
+    {
+      "participant_id": "CAN",
+      "approach": "AP",
+      "FS_pct": 7.4899285651155765,
+      "FS_adj_pct": 7.465176504190148
+    },
+    {
+      "participant_id": "CAN",
+      "approach": "HR",
+      "FS_pct": 2.156375303525589,
+      "FS_adj_pct": 2.141589999096019
+    },
+    {
+      "participant_id": "CAN",
+      "approach": "EQ",
+      "FS_pct": 0.5253524933319608,
+      "FS_adj_pct": 0.5118132229865142
+    },
+    {
+      "participant_id": "CHL",
+      "approach": "AP",
+      "FS_pct": 0.07256390582491845,
+      "FS_adj_pct": -0.03937997112899577
+    },
+    {
+      "participant_id": "CHL",
+      "approach": "HR",
+      "FS_pct": 0.19022711487515642,
+      "FS_adj_pct": 0.102068680006516
+    },
+    {
+      "participant_id": "CHL",
+      "approach": "EQ",
+      "FS_pct": 0.2554550186787937,
+      "FS_adj_pct": 0.16592789874631342
+    },
+    {
+      "participant_id": "CHN",
+      "approach": "AP",
+      "FS_pct": 14.710331971281745,
+      "FS_adj_pct": 14.877139305719753
+    },
+    {
+      "participant_id": "CHN",
+      "approach": "HR",
+      "FS_pct": 14.995782601658556,
+      "FS_adj_pct": 15.119659617131612
+    },
+    {
+      "participant_id": "CHN",
+      "approach": "EQ",
+      "FS_pct": 20.704523350579272,
+      "FS_adj_pct": 20.827976568364264
+    },
+    {
+      "participant_id": "CZE",
+      "approach": "AP",
+      "FS_pct": 0.0038452978723170967,
+      "FS_adj_pct": 0.008716199619628957
+    },
+    {
+      "participant_id": "CZE",
+      "approach": "HR",
+      "FS_pct": 0.36953410922372343,
+      "FS_adj_pct": 0.372443675639122
+    },
+    {
+      "participant_id": "CZE",
+      "approach": "EQ",
+      "FS_pct": 0.19067093017854223,
+      "FS_adj_pct": 0.19333529238182082
+    },
+    {
+      "participant_id": "DEN",
+      "approach": "AP",
+      "FS_pct": 0.0009838976296583177,
+      "FS_adj_pct": 0.006149958051230663
+    },
+    {
+      "participant_id": "DEN",
+      "approach": "HR",
+      "FS_pct": 0.16221325669743267,
+      "FS_adj_pct": 0.1652991321024995
+    },
+    {
+      "participant_id": "DEN",
+      "approach": "EQ",
+      "FS_pct": 0.09772485389202565,
+      "FS_adj_pct": 0.10055066661442079
+    },
+    {
+      "participant_id": "DOM",
+      "approach": "AP",
+      "FS_pct": 0.0006232480656035509,
+      "FS_adj_pct": -0.08052530650633333
+    },
+    {
+      "participant_id": "DOM",
+      "approach": "HR",
+      "FS_pct": 0.09426345111507625,
+      "FS_adj_pct": 0.024947584499104072
+    },
+    {
+      "participant_id": "DOM",
+      "approach": "EQ",
+      "FS_pct": 0.13655440739288174,
+      "FS_adj_pct": 0.06446678569556814
+    },
+    {
+      "participant_id": "ETH",
+      "approach": "AP",
+      "FS_pct": 0.027093350653593213,
+      "FS_adj_pct": 0.04844823895834075
+    },
+    {
+      "participant_id": "ETH",
+      "approach": "HR",
+      "FS_pct": 0.5024122371412609,
+      "FS_adj_pct": 0.5249863771508846
+    },
+    {
+      "participant_id": "ETH",
+      "approach": "EQ",
+      "FS_pct": 1.0958666948697748,
+      "FS_adj_pct": 1.1205957387912582
+    },
+    {
+      "participant_id": "FIN",
+      "approach": "AP",
+      "FS_pct": 0.06564395788063852,
+      "FS_adj_pct": 0.18498371180685386
+    },
+    {
+      "participant_id": "FIN",
+      "approach": "HR",
+      "FS_pct": 0.1355275924929682,
+      "FS_adj_pct": 0.230691954729991
+    },
+    {
+      "participant_id": "FIN",
+      "approach": "EQ",
+      "FS_pct": 0.09353792744486221,
+      "FS_adj_pct": 0.19055008666648154
+    },
+    {
+      "participant_id": "GRE",
+      "approach": "AP",
+      "FS_pct": 0.007590856472010988,
+      "FS_adj_pct": -0.000341968280902851
+    },
+    {
+      "participant_id": "GRE",
+      "approach": "HR",
+      "FS_pct": 0.18147823955339998,
+      "FS_adj_pct": 0.18043164049627922
+    },
+    {
+      "participant_id": "GRE",
+      "approach": "EQ",
+      "FS_pct": 0.1871333803081908,
+      "FS_adj_pct": 0.18770069481522128
+    },
+    {
+      "participant_id": "GUA",
+      "approach": "AP",
+      "FS_pct": 0.002208417814713486,
+      "FS_adj_pct": -0.006826369464466241
+    },
+    {
+      "participant_id": "GUA",
+      "approach": "HR",
+      "FS_pct": 0.14786435545424118,
+      "FS_adj_pct": 0.14246754907187492
+    },
+    {
+      "participant_id": "GUA",
+      "approach": "EQ",
+      "FS_pct": 0.1854617583347244,
+      "FS_adj_pct": 0.18051976874222372
+    },
+    {
+      "participant_id": "IND",
+      "approach": "AP",
+      "FS_pct": 0.9143272384472887,
+      "FS_adj_pct": 0.9864674395322659
+    },
+    {
+      "participant_id": "IND",
+      "approach": "HR",
+      "FS_pct": 6.2568651558830775,
+      "FS_adj_pct": 6.3251309479082325
+    },
+    {
+      "participant_id": "IND",
+      "approach": "EQ",
+      "FS_pct": 17.053047916367966,
+      "FS_adj_pct": 17.125963728263677
+    },
+    {
+      "participant_id": "IRE",
+      "approach": "AP",
+      "FS_pct": 0.002116127996310161,
+      "FS_adj_pct": -0.06774445455231888
+    },
+    {
+      "participant_id": "IRE",
+      "approach": "HR",
+      "FS_pct": 0.16885800592387845,
+      "FS_adj_pct": 0.10780735772272201
+    },
+    {
+      "participant_id": "IRE",
+      "approach": "EQ",
+      "FS_pct": 0.06984486502237315,
+      "FS_adj_pct": 0.005955086144306258
+    },
+    {
+      "participant_id": "MEX",
+      "approach": "AP",
+      "FS_pct": 0.5014387610009048,
+      "FS_adj_pct": 0.4937909530923117
+    },
+    {
+      "participant_id": "MEX",
+      "approach": "HR",
+      "FS_pct": 1.847554535011344,
+      "FS_adj_pct": 1.8360143704137528
+    },
+    {
+      "participant_id": "MEX",
+      "approach": "EQ",
+      "FS_pct": 1.5670745891393567,
+      "FS_adj_pct": 1.5536258437525798
+    },
+    {
+      "participant_id": "NEP",
+      "approach": "AP",
+      "FS_pct": 0.0015610111801957287,
+      "FS_adj_pct": -0.04771729687233336
+    },
+    {
+      "participant_id": "NEP",
+      "approach": "HR",
+      "FS_pct": 0.10825204915993608,
+      "FS_adj_pct": 0.07915076865832843
+    },
+    {
+      "participant_id": "NEP",
+      "approach": "EQ",
+      "FS_pct": 0.3786336348439521,
+      "FS_adj_pct": 0.35212307836872964
+    },
+    {
+      "participant_id": "NOR",
+      "approach": "AP",
+      "FS_pct": 0.08476756792311767,
+      "FS_adj_pct": 0.07742333116245233
+    },
+    {
+      "participant_id": "NOR",
+      "approach": "HR",
+      "FS_pct": 0.14229063984418172,
+      "FS_adj_pct": 0.12803289931243275
+    },
+    {
+      "participant_id": "NOR",
+      "approach": "EQ",
+      "FS_pct": 0.0818374804606822,
+      "FS_adj_pct": 0.06470220352922507
+    },
+    {
+      "participant_id": "PAK",
+      "approach": "AP",
+      "FS_pct": 0.03845207991781631,
+      "FS_adj_pct": 0.08921364525889104
+    },
+    {
+      "participant_id": "PAK",
+      "approach": "HR",
+      "FS_pct": 0.9021842041988917,
+      "FS_adj_pct": 0.9524623137913928
+    },
+    {
+      "participant_id": "PAK",
+      "approach": "EQ",
+      "FS_pct": 2.38418140010077,
+      "FS_adj_pct": 2.438469325085225
+    },
+    {
+      "participant_id": "POL",
+      "approach": "AP",
+      "FS_pct": 0.030826032397817005,
+      "FS_adj_pct": -0.011986376326606745
+    },
+    {
+      "participant_id": "POL",
+      "approach": "HR",
+      "FS_pct": 1.0024737352365376,
+      "FS_adj_pct": 0.9769003295205128
+    },
+    {
+      "participant_id": "POL",
+      "approach": "EQ",
+      "FS_pct": 0.6761354601811294,
+      "FS_adj_pct": 0.6527172576481755
+    },
+    {
+      "participant_id": "POR",
+      "approach": "AP",
+      "FS_pct": 0.003047237729568812,
+      "FS_adj_pct": -0.14389749999930787
+    },
+    {
+      "participant_id": "POR",
+      "approach": "HR",
+      "FS_pct": 0.11904165632641361,
+      "FS_adj_pct": -0.008778100958811413
+    },
+    {
+      "participant_id": "POR",
+      "approach": "EQ",
+      "FS_pct": 0.18348339011773165,
+      "FS_adj_pct": 0.04988727256851975
+    },
+    {
+      "participant_id": "RUS",
+      "approach": "AP",
+      "FS_pct": 19.905170265842976,
+      "FS_adj_pct": 19.91099754503245
+    },
+    {
+      "participant_id": "RUS",
+      "approach": "HR",
+      "FS_pct": 4.455051490300876,
+      "FS_adj_pct": 4.458532335676623
+    },
+    {
+      "participant_id": "RUS",
+      "approach": "EQ",
+      "FS_pct": 2.6139724107456455,
+      "FS_adj_pct": 2.617159907276232
+    },
+    {
+      "participant_id": "R_ASE",
+      "approach": "AP",
+      "FS_pct": 1.1935215404857735,
+      "FS_adj_pct": 1.1455339336378192
+    },
+    {
+      "participant_id": "R_ASE",
+      "approach": "HR",
+      "FS_pct": 7.1419187518250995,
+      "FS_adj_pct": 7.113254012422952
+    },
+    {
+      "participant_id": "R_ASE",
+      "approach": "EQ",
+      "FS_pct": 11.09737895966453,
+      "FS_adj_pct": 11.071129946125701
+    },
+    {
+      "participant_id": "R_ASP",
+      "approach": "AP",
+      "FS_pct": 2.222965665198843,
+      "FS_adj_pct": 2.24818869528849
+    },
+    {
+      "participant_id": "R_ASP",
+      "approach": "HR",
+      "FS_pct": 5.2368668664126625,
+      "FS_adj_pct": 5.239333785650865
+    },
+    {
+      "participant_id": "R_ASP",
+      "approach": "EQ",
+      "FS_pct": 3.3918324824979487,
+      "FS_adj_pct": 3.3888846478876493
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "AP",
+      "FS_pct": 0.03246661213411653,
+      "FS_adj_pct": 0.0569371727386411
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "HR",
+      "FS_pct": 1.325002863556158,
+      "FS_adj_pct": 1.3396200176262834
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "EQ",
+      "FS_pct": 0.5747849448654826,
+      "FS_adj_pct": 0.5881702357520653
+    },
+    {
+      "participant_id": "R_CSA",
+      "approach": "AP",
+      "FS_pct": 0.3537321062614734,
+      "FS_adj_pct": 0.4383161667764706
+    },
+    {
+      "participant_id": "R_CSA",
+      "approach": "HR",
+      "FS_pct": 3.5836692682707505,
+      "FS_adj_pct": 3.6589353935842666
+    },
+    {
+      "participant_id": "R_CSA",
+      "approach": "EQ",
+      "FS_pct": 2.292292663655385,
+      "FS_adj_pct": 2.371439984436784
+    },
+    {
+      "participant_id": "R_EAF",
+      "approach": "AP",
+      "FS_pct": 0.04445822240104704,
+      "FS_adj_pct": 0.08403010073725736
+    },
+    {
+      "participant_id": "R_EAF",
+      "approach": "HR",
+      "FS_pct": 1.8845771829925104,
+      "FS_adj_pct": 1.9197220490215
+    },
+    {
+      "participant_id": "R_EAF",
+      "approach": "EQ",
+      "FS_pct": 3.3475560856416586,
+      "FS_adj_pct": 3.384494461183322
+    },
+    {
+      "participant_id": "R_EEU",
+      "approach": "AP",
+      "FS_pct": 0.7760998025847492,
+      "FS_adj_pct": 0.8407507871200265
+    },
+    {
+      "participant_id": "R_EEU",
+      "approach": "HR",
+      "FS_pct": 7.325945315166213,
+      "FS_adj_pct": 7.376883045727108
+    },
+    {
+      "participant_id": "R_EEU",
+      "approach": "EQ",
+      "FS_pct": 6.1009603171050895,
+      "FS_adj_pct": 6.1526962555994045
+    },
+    {
+      "participant_id": "R_MEA",
+      "approach": "AP",
+      "FS_pct": 0.23752269571197066,
+      "FS_adj_pct": 0.15830923001622174
+    },
+    {
+      "participant_id": "R_MEA",
+      "approach": "HR",
+      "FS_pct": 6.984136919191171,
+      "FS_adj_pct": 6.899180058556325
+    },
+    {
+      "participant_id": "R_MEA",
+      "approach": "EQ",
+      "FS_pct": 5.410571127674524,
+      "FS_adj_pct": 5.317219313134103
+    },
+    {
+      "participant_id": "R_NEU",
+      "approach": "AP",
+      "FS_pct": 0.029096787960754173,
+      "FS_adj_pct": 0.032077311874019514
+    },
+    {
+      "participant_id": "R_NEU",
+      "approach": "HR",
+      "FS_pct": 1.8580008870456446,
+      "FS_adj_pct": 1.8597812621647107
+    },
+    {
+      "participant_id": "R_NEU",
+      "approach": "EQ",
+      "FS_pct": 1.828313761917796,
+      "FS_adj_pct": 1.829944095616244
+    },
+    {
+      "participant_id": "R_SAF",
+      "approach": "AP",
+      "FS_pct": 0.04692348705603847,
+      "FS_adj_pct": 0.08020232294247531
+    },
+    {
+      "participant_id": "R_SAF",
+      "approach": "HR",
+      "FS_pct": 1.7436766357719446,
+      "FS_adj_pct": 1.7688277955920226
+    },
+    {
+      "participant_id": "R_SAF",
+      "approach": "EQ",
+      "FS_pct": 1.2195929763114663,
+      "FS_adj_pct": 1.2448033892639887
+    },
+    {
+      "participant_id": "R_SIS",
+      "approach": "AP",
+      "FS_pct": 0.003046028374968,
+      "FS_adj_pct": -0.028391158659908093
+    },
+    {
+      "participant_id": "R_SIS",
+      "approach": "HR",
+      "FS_pct": 0.3998578802748919,
+      "FS_adj_pct": 0.368185662455534
+    },
+    {
+      "participant_id": "R_SIS",
+      "approach": "EQ",
+      "FS_pct": 0.6257784734414207,
+      "FS_adj_pct": 0.591447115207978
+    },
+    {
+      "participant_id": "R_WAF",
+      "approach": "AP",
+      "FS_pct": 0.09074168232141303,
+      "FS_adj_pct": 0.1444284238642816
+    },
+    {
+      "participant_id": "R_WAF",
+      "approach": "HR",
+      "FS_pct": 2.576046464760378,
+      "FS_adj_pct": 2.620392991070927
+    },
+    {
+      "participant_id": "R_WAF",
+      "approach": "EQ",
+      "FS_pct": 3.9592220327127476,
+      "FS_adj_pct": 4.004904941486036
+    },
+    {
+      "participant_id": "SAF",
+      "approach": "AP",
+      "FS_pct": 0.03858843834245087,
+      "FS_adj_pct": 0.057643676044383564
+    },
+    {
+      "participant_id": "SAF",
+      "approach": "HR",
+      "FS_pct": 1.4390622036003131,
+      "FS_adj_pct": 1.466920096689685
+    },
+    {
+      "participant_id": "SAF",
+      "approach": "EQ",
+      "FS_pct": 0.7258339230185534,
+      "FS_adj_pct": 0.7581526207664115
+    },
+    {
+      "participant_id": "SWE",
+      "approach": "AP",
+      "FS_pct": 0.18346379575909258,
+      "FS_adj_pct": 0.23144828709169113
+    },
+    {
+      "participant_id": "SWE",
+      "approach": "HR",
+      "FS_pct": 0.19195243057147307,
+      "FS_adj_pct": 0.23271521942342194
+    },
+    {
+      "participant_id": "SWE",
+      "approach": "EQ",
+      "FS_pct": 0.16292378740922553,
+      "FS_adj_pct": 0.20525159503663715
+    },
+    {
+      "participant_id": "TUR",
+      "approach": "AP",
+      "FS_pct": 0.11249400878530862,
+      "FS_adj_pct": 0.09891585311581454
+    },
+    {
+      "participant_id": "TUR",
+      "approach": "HR",
+      "FS_pct": 0.8311364178907781,
+      "FS_adj_pct": 0.8159155346626925
+    },
+    {
+      "participant_id": "TUR",
+      "approach": "EQ",
+      "FS_pct": 1.0435318867754841,
+      "FS_adj_pct": 1.0266554604811544
+    },
+    {
+      "participant_id": "UK",
+      "approach": "AP",
+      "FS_pct": 0.10332783831997186,
+      "FS_adj_pct": 0.08783650870330789
+    },
+    {
+      "participant_id": "UK",
+      "approach": "HR",
+      "FS_pct": 1.6995429259461066,
+      "FS_adj_pct": 1.6771041583962347
+    },
+    {
+      "participant_id": "UK",
+      "approach": "EQ",
+      "FS_pct": 1.096126702706117,
+      "FS_adj_pct": 1.0701301443785602
+    },
+    {
+      "participant_id": "USA",
+      "approach": "AP",
+      "FS_pct": 45.76440899991176,
+      "FS_adj_pct": 45.743907601203226
+    },
+    {
+      "participant_id": "USA",
+      "approach": "HR",
+      "FS_pct": 15.355986637175942,
+      "FS_adj_pct": 15.343740407577085
+    },
+    {
+      "participant_id": "USA",
+      "approach": "EQ",
+      "FS_pct": 4.820630673538695,
+      "FS_adj_pct": 4.809416497054123
+    },
+    {
+      "participant_id": "UZB",
+      "approach": "AP",
+      "FS_pct": 0.003744241008835255,
+      "FS_adj_pct": 0.010735798865872238
+    },
+    {
+      "participant_id": "UZB",
+      "approach": "HR",
+      "FS_pct": 0.47808503064798297,
+      "FS_adj_pct": 0.4822474380860156
+    },
+    {
+      "participant_id": "UZB",
+      "approach": "EQ",
+      "FS_pct": 0.3934891152642054,
+      "FS_adj_pct": 0.3972949893069919
+    }
+  ]
+}
