@@ -18,7 +18,7 @@ from typing import Any
 # 01 | Define the release and reporting contracts
 
 APPROACHES = ("AP", "HR", "EQ")  # EQ is displayed as EQ (IEPC).
-PARTICIPANT_COUNT = 38
+PARTICIPANT_COUNT = 37
 PERIOD = (2026, 2050)
 BLOCK_END_YEARS = (2030, 2035, 2040, 2045, 2050)
 LIVE_FIELDS = ("country", "year", "calcallagrico2e", "calcalllandco2e")
@@ -84,7 +84,7 @@ def load_weights(path: str | Path) -> Weights:
 
 
 def validate_weights(payload: Mapping[str, Any]) -> Weights:
-    """Validate the release with exactly 38 participant IDs and 114 weight pairs."""
+    """Validate the release with exactly 37 participant IDs and 111 weight pairs."""
     if not isinstance(payload, Mapping) or type(payload.get("schema_version")) is not int or payload["schema_version"] != SCHEMA_VERSION:
         raise ValueError("Expected Fair Share percentage schema_version 2. Fixed-allowance JSON is not supported.")
     if payload.get("status") != "released":
@@ -234,7 +234,7 @@ def _allocate(emissions: float, cohort_gap: float, share_pct: float, basis: str)
 def calculate(indicator_rows: Iterable[Mapping[str, Any]], weights: Weights,
               *, pathway: str, trade_adj: bool, scenathon_id: str | int,
               snapshot_id: str | int) -> dict[str, Any]:
-    """Return metadata, 38 participant summaries and 114 full detail rows.
+    """Return metadata, 37 participant summaries and 111 full detail rows.
 
     Pass backend rows for the selected event, snapshot, pathway and trade stage.
     Use the pathway value from the query, not a translated display label. Read
