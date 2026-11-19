@@ -18,7 +18,7 @@ from typing import Any
 # 01 | Define the release and reporting contracts
 
 APPROACHES = ("AP", "HR", "EQ")  # EQ is displayed as EQ (IEPC).
-PARTICIPANT_COUNT = 37
+PARTICIPANT_COUNT = 38
 PERIOD = (2026, 2050)
 BLOCK_END_YEARS = (2030, 2035, 2040, 2045, 2050)
 LIVE_FIELDS = ("country", "year", "calcallagrico2e", "calcalllandco2e")
@@ -102,7 +102,7 @@ def load_weights(path: str | Path) -> Weights:
 
 
 def validate_weights(payload: Mapping[str, Any]) -> Weights:
-    """Validate the release with exactly 37 participant IDs and 111 weight pairs."""
+    """Validate the release with exactly 38 participant IDs and 114 weight pairs."""
     if not isinstance(payload, Mapping) or type(payload.get("schema_version")) is not int or payload["schema_version"] != SCHEMA_VERSION:
         raise ValueError("Expected Fair Share weights schema_version 2. Load the benchmark separately.")
     if payload.get("status") != "released":
@@ -246,7 +246,7 @@ def validate_benchmark(payload: Mapping[str, Any], weights: Weights) -> Benchmar
                 raise ValueError(f"Benchmark allowance {pid}/{approach} does not match its reference formula.")
         allowances[key] = values
     if allowances.keys() != weights.percentages.keys():
-        raise ValueError("Benchmark allowances must have all 111 participant–approach pairs.")
+        raise ValueError("Benchmark allowances must have all 114 participant–approach pairs.")
     _reconcile(allowances, weights, cohort_gap)
     return Benchmark(version, weights, event, snapshot, source, cohort_emissions,
                      cohort_gap, MappingProxyType(emissions), MappingProxyType(allowances))
@@ -347,7 +347,7 @@ def _compare(emissions: float, allowance: float, baseline_reduction: float,
 def calculate(indicator_rows: Iterable[Mapping[str, Any]], weights: Weights,
               *, benchmark: Benchmark, pathway: str, trade_adj: bool, scenathon_id: str | int,
               snapshot_id: str | int) -> dict[str, Any]:
-    """Return metadata, 37 participant summaries and 111 full detail rows.
+    """Return metadata, 38 participant summaries and 114 full detail rows.
 
     Pass the selected reporting rows and the same startup benchmark for every
     pathway or trade-stage selection. Filter the display only after calculation.
@@ -415,21 +415,21 @@ _BUNDLED_BENCHMARK_JSON = r"""
 {
   "schema_version": 1,
   "status": "released",
-  "benchmark_version": "scenathon-2026-ct-pretrade-37-v1",
+  "benchmark_version": "scenathon-2026-ct-pretrade-38-v1",
   "allowance_basis": "fixed-current-trends-pretrade",
   "pathway": "Current Trends",
   "trade_adj": false,
   "scenathon_id": "9",
-  "snapshot_id": "scenathon-9-initial-current-trends-before-trade-corrected-v1",
-  "source": "FABLE's corrected initial Current Trends submissions before trade adjustment. Full-precision calibration audit used for the released weights.",
-  "source_audit_sha256": "8b702fc099a2f035aefa1a236931378a0d2474ca3b66397ac0d30e9eee436861",
-  "weight_version": "scenathon-2026-fs-37-v1",
+  "snapshot_id": "scenathon-9-initial-current-trends-before-trade-corrected-38-v1",
+  "source": "Current Trends | before trade adjustment | Scenathon 2026-27 | 38 corrected initial Current Trends submissions | before trade",
+  "source_audit_sha256": "4401fe2ded19e9ea813eb9a9cba10105d928246948a58598b43ccf7ffbad2b59",
+  "weight_version": "scenathon-2026-fs-38-v1",
   "budget_mtco2e": 40000.0,
   "unit": "MtCO2e",
   "period_start": 2026,
   "period_end": 2050,
-  "cohort_emissions_mtco2e": 297050.7654647585,
-  "cohort_gap_mtco2e": 257050.7654647585,
+  "cohort_emissions_mtco2e": 298934.92424767686,
+  "cohort_gap_mtco2e": 258934.92424767686,
   "reference_afolu_mtco2e": {
     "ARG": 15295.031501315545,
     "BRA": 20772.47631903481,
@@ -454,6 +454,7 @@ _BUNDLED_BENCHMARK_JSON = r"""
     "RUS": 2016.315444618173,
     "R_ASE": 24760.64641329272,
     "R_ASP": -3492.2758313527775,
+    "R_CAS": 1884.1587829183425,
     "R_CSA": 20898.859445678252,
     "R_EAF": 79839.41180943265,
     "R_EEU": 6459.579498855627,
@@ -473,668 +474,686 @@ _BUNDLED_BENCHMARK_JSON = r"""
     {
       "participant_id": "ARG",
       "approach": "AP",
-      "base_allowance_mtco2e": 14813.161587247516,
-      "adjusted_allowance_mtco2e": 14933.435910967817
+      "base_allowance_mtco2e": 14809.787118085284,
+      "adjusted_allowance_mtco2e": 14929.487513120237
     },
     {
       "participant_id": "ARG",
       "approach": "HR",
-      "base_allowance_mtco2e": 12648.76113258693,
-      "adjusted_allowance_mtco2e": 12720.873574219147
+      "base_allowance_mtco2e": 12664.684378869537,
+      "adjusted_allowance_mtco2e": 12736.185769653255
     },
     {
       "participant_id": "ARG",
       "approach": "EQ",
-      "base_allowance_mtco2e": 13696.323844319344,
-      "adjusted_allowance_mtco2e": 13762.441590261542
+      "base_allowance_mtco2e": 13693.861948700469,
+      "adjusted_allowance_mtco2e": 13759.337547428087
     },
     {
       "participant_id": "BRA",
       "approach": "AP",
-      "base_allowance_mtco2e": 8652.509771332843,
-      "adjusted_allowance_mtco2e": 8744.753872009123
+      "base_allowance_mtco2e": 8567.635301754028,
+      "adjusted_allowance_mtco2e": 8659.838333562386
     },
     {
       "participant_id": "BRA",
       "approach": "HR",
-      "base_allowance_mtco2e": 7772.226777956497,
-      "adjusted_allowance_mtco2e": 7827.533240052296
+      "base_allowance_mtco2e": 7850.452411143551,
+      "adjusted_allowance_mtco2e": 7905.528628785506
     },
     {
       "participant_id": "BRA",
       "approach": "EQ",
-      "base_allowance_mtco2e": 13506.763554347199,
-      "adjusted_allowance_mtco2e": 13557.472399132424
+      "base_allowance_mtco2e": 13495.574875575869,
+      "adjusted_allowance_mtco2e": 13546.00953546476
     },
     {
       "participant_id": "CAN",
       "approach": "AP",
-      "base_allowance_mtco2e": -16105.485996762149,
-      "adjusted_allowance_mtco2e": -16041.897954757767
+      "base_allowance_mtco2e": -16240.35534314172,
+      "adjusted_allowance_mtco2e": -16176.263612934721
     },
     {
       "participant_id": "CAN",
       "approach": "HR",
-      "base_allowance_mtco2e": -2463.7245551223677,
-      "adjusted_allowance_mtco2e": -2425.5993025687844
+      "base_allowance_mtco2e": -2429.923245534188,
+      "adjusted_allowance_mtco2e": -2391.638928709693
     },
     {
       "participant_id": "CAN",
       "approach": "EQ",
-      "base_allowance_mtco2e": 1795.4560089405174,
-      "adjusted_allowance_mtco2e": 1830.411915373087
+      "base_allowance_mtco2e": 1793.3644325030136,
+      "adjusted_allowance_mtco2e": 1828.4223319156836
     },
     {
       "participant_id": "CHL",
       "approach": "AP",
-      "base_allowance_mtco2e": -158.86707317423017,
-      "adjusted_allowance_mtco2e": 130.67707590394454
+      "base_allowance_mtco2e": -160.17371401389545,
+      "adjusted_allowance_mtco2e": 129.68807897663493
     },
     {
       "participant_id": "CHL",
       "approach": "HR",
-      "base_allowance_mtco2e": -467.82667643864613,
-      "adjusted_allowance_mtco2e": -239.05674504463303
+      "base_allowance_mtco2e": -464.8448552355148,
+      "adjusted_allowance_mtco2e": -236.57187869046322
     },
     {
       "participant_id": "CHL",
       "approach": "EQ",
-      "base_allowance_mtco2e": -632.7256400642287,
-      "adjusted_allowance_mtco2e": -400.877999018579
+      "base_allowance_mtco2e": -633.7426785378105,
+      "adjusted_allowance_mtco2e": -401.92569835951593
     },
     {
       "participant_id": "CHN",
       "approach": "AP",
-      "base_allowance_mtco2e": -17111.725225381542,
-      "adjusted_allowance_mtco2e": -17548.994570379455
+      "base_allowance_mtco2e": -17376.610643279066,
+      "adjusted_allowance_mtco2e": -17808.533088345695
     },
     {
       "participant_id": "CHN",
       "approach": "HR",
-      "base_allowance_mtco2e": -18350.801790220732,
-      "adjusted_allowance_mtco2e": -18675.778351773486
+      "base_allowance_mtco2e": -18115.742016809778,
+      "adjusted_allowance_mtco2e": -18436.50287298522
     },
     {
       "participant_id": "CHN",
       "approach": "EQ",
-      "base_allowance_mtco2e": -32815.23500391097,
-      "adjusted_allowance_mtco2e": -33138.34969730911
+      "base_allowance_mtco2e": -32897.6655505239,
+      "adjusted_allowance_mtco2e": -33217.329046476785
     },
     {
       "participant_id": "CZE",
       "approach": "AP",
-      "base_allowance_mtco2e": 80.00621512896699,
-      "adjusted_allowance_mtco2e": 65.4036428785331
+      "base_allowance_mtco2e": 79.93697377290258,
+      "adjusted_allowance_mtco2e": 67.32450802332184
     },
     {
       "participant_id": "CZE",
       "approach": "HR",
-      "base_allowance_mtco2e": -872.7515417574497,
-      "adjusted_allowance_mtco2e": -881.5067532316665
+      "base_allowance_mtco2e": -866.9590728820914,
+      "adjusted_allowance_mtco2e": -874.4929564757396
     },
     {
       "participant_id": "CZE",
       "approach": "EQ",
-      "base_allowance_mtco2e": -403.0607209678133,
-      "adjusted_allowance_mtco2e": -411.0881131184606
+      "base_allowance_mtco2e": -403.8198357144648,
+      "adjusted_allowance_mtco2e": -410.7187999672079
     },
     {
       "participant_id": "DEN",
       "approach": "AP",
-      "base_allowance_mtco2e": 73.37458146740939,
-      "adjusted_allowance_mtco2e": 57.9929298825408
+      "base_allowance_mtco2e": 73.3568646588894,
+      "adjusted_allowance_mtco2e": 59.980130019701846
     },
     {
       "participant_id": "DEN",
       "approach": "HR",
-      "base_allowance_mtco2e": -346.66495643840983,
-      "adjusted_allowance_mtco2e": -355.8872776937795
+      "base_allowance_mtco2e": -344.12225410826704,
+      "adjusted_allowance_mtco2e": -352.1126632507545
     },
     {
       "participant_id": "DEN",
       "approach": "EQ",
-      "base_allowance_mtco2e": -176.75018695153727,
-      "adjusted_allowance_mtco2e": -185.20585812225838
+      "base_allowance_mtco2e": -177.13925715554961,
+      "adjusted_allowance_mtco2e": -184.45627318766472
     },
     {
       "participant_id": "DOM",
       "approach": "AP",
-      "base_allowance_mtco2e": 377.2212034610972,
-      "adjusted_allowance_mtco2e": 585.568293879842
+      "base_allowance_mtco2e": 377.2099807827353,
+      "adjusted_allowance_mtco2e": 587.3319290916647
     },
     {
       "participant_id": "DOM",
       "approach": "HR",
-      "base_allowance_mtco2e": 133.26520681620286,
-      "adjusted_allowance_mtco2e": 312.1927636338115
+      "base_allowance_mtco2e": 134.74279195121233,
+      "adjusted_allowance_mtco2e": 314.22577866490064
     },
     {
       "participant_id": "DOM",
       "approach": "EQ",
-      "base_allowance_mtco2e": 25.78039795698959,
-      "adjusted_allowance_mtco2e": 211.46473147278203
+      "base_allowance_mtco2e": 25.236736349658543,
+      "adjusted_allowance_mtco2e": 211.8967649835494
     },
     {
       "participant_id": "ETH",
       "approach": "AP",
-      "base_allowance_mtco2e": 6153.619122398606,
-      "adjusted_allowance_mtco2e": 6097.438418456708
+      "base_allowance_mtco2e": 6153.131258934741,
+      "adjusted_allowance_mtco2e": 6097.835995079667
     },
     {
       "participant_id": "ETH",
       "approach": "HR",
-      "base_allowance_mtco2e": 4914.4893189348095,
-      "adjusted_allowance_mtco2e": 4855.363892337827
+      "base_allowance_mtco2e": 4922.364660272997,
+      "adjusted_allowance_mtco2e": 4863.9123279395135
     },
     {
       "participant_id": "ETH",
       "approach": "EQ",
-      "base_allowance_mtco2e": 3390.066764081229,
-      "adjusted_allowance_mtco2e": 3325.6670953648418
+      "base_allowance_mtco2e": 3385.703809709208,
+      "adjusted_allowance_mtco2e": 3321.6716785639405
     },
     {
       "participant_id": "FIN",
       "approach": "AP",
-      "base_allowance_mtco2e": -19.290055222758014,
-      "adjusted_allowance_mtco2e": -331.33797956250453
+      "base_allowance_mtco2e": -20.472090220309838,
+      "adjusted_allowance_mtco2e": -329.48439164651955
     },
     {
       "participant_id": "FIN",
       "approach": "HR",
-      "base_allowance_mtco2e": -203.54962954099662,
-      "adjusted_allowance_mtco2e": -452.5185494196127
+      "base_allowance_mtco2e": -201.4252265652689,
+      "adjusted_allowance_mtco2e": -447.83899583448874
     },
     {
       "participant_id": "FIN",
       "approach": "EQ",
-      "base_allowance_mtco2e": -92.32691831208632,
-      "adjusted_allowance_mtco2e": -345.38037144442364
+      "base_allowance_mtco2e": -92.69931918110248,
+      "adjusted_allowance_mtco2e": -343.89768017263816
     },
     {
       "participant_id": "GRE",
       "approach": "AP",
-      "base_allowance_mtco2e": 179.22053847870606,
-      "adjusted_allowance_mtco2e": 199.14017761310066
+      "base_allowance_mtco2e": 179.08385174772582,
+      "adjusted_allowance_mtco2e": 199.62470551238422
     },
     {
       "participant_id": "GRE",
       "approach": "HR",
-      "base_allowance_mtco2e": -274.01599397872826,
-      "adjusted_allowance_mtco2e": -271.63974239009764
+      "base_allowance_mtco2e": -271.1713119103364,
+      "adjusted_allowance_mtco2e": -268.4613014346039
     },
     {
       "participant_id": "GRE",
       "approach": "EQ",
-      "base_allowance_mtco2e": -285.06941557690686,
-      "adjusted_allowance_mtco2e": -286.7222661997596
+      "base_allowance_mtco2e": -285.8144463398536,
+      "adjusted_allowance_mtco2e": -287.283421728879
     },
     {
       "participant_id": "GUA",
       "approach": "AP",
-      "base_allowance_mtco2e": 150.8246440879373,
-      "adjusted_allowance_mtco2e": 172.92651557021398
+      "base_allowance_mtco2e": 150.7848776382824,
+      "adjusted_allowance_mtco2e": 174.17909723556517
     },
     {
       "participant_id": "GUA",
       "approach": "HR",
-      "base_allowance_mtco2e": -228.6869966109076,
-      "adjusted_allowance_mtco2e": -215.4354573968116
+      "base_allowance_mtco2e": -226.36921415087204,
+      "adjusted_allowance_mtco2e": -212.39499763289817
     },
     {
       "participant_id": "GUA",
       "approach": "EQ",
-      "base_allowance_mtco2e": -322.9836452541108,
-      "adjusted_allowance_mtco2e": -310.83370436639
+      "base_allowance_mtco2e": -323.7220208185451,
+      "adjusted_allowance_mtco2e": -310.92548381087545
     },
     {
       "participant_id": "IND",
       "approach": "AP",
-      "base_allowance_mtco2e": 19587.521908137445,
-      "adjusted_allowance_mtco2e": 19400.31337379815
+      "base_allowance_mtco2e": 19571.057836957814,
+      "adjusted_allowance_mtco2e": 19384.261661926306
     },
     {
       "participant_id": "IND",
       "approach": "HR",
-      "base_allowance_mtco2e": 5639.284598579452,
-      "adjusted_allowance_mtco2e": 5461.808350743883
+      "base_allowance_mtco2e": 5737.361327542041,
+      "adjusted_allowance_mtco2e": 5560.5973506746295
     },
     {
       "participant_id": "IND",
       "approach": "EQ",
-      "base_allowance_mtco2e": -22149.83333185141,
-      "adjusted_allowance_mtco2e": -22338.68170592091
+      "base_allowance_mtco2e": -22217.72632496025,
+      "adjusted_allowance_mtco2e": -22406.53082725699
     },
     {
       "participant_id": "IRE",
       "approach": "AP",
-      "base_allowance_mtco2e": 363.543527770308,
-      "adjusted_allowance_mtco2e": 542.3952758485516
+      "base_allowance_mtco2e": 363.5054231612671,
+      "adjusted_allowance_mtco2e": 544.3988696625455
     },
     {
       "participant_id": "IRE",
       "approach": "HR",
-      "base_allowance_mtco2e": -70.89439130433863,
-      "adjusted_allowance_mtco2e": 86.40352673513226
+      "base_allowance_mtco2e": -68.24753213963567,
+      "adjusted_allowance_mtco2e": 89.83391753274444
     },
     {
       "participant_id": "IRE",
       "approach": "EQ",
-      "base_allowance_mtco2e": 188.41014135444348,
-      "adjusted_allowance_mtco2e": 352.6828329758282
+      "base_allowance_mtco2e": 188.13206924892268,
+      "adjusted_allowance_mtco2e": 353.5650197888534
     },
     {
       "participant_id": "MEX",
       "approach": "AP",
-      "base_allowance_mtco2e": 794.3748589371496,
-      "adjusted_allowance_mtco2e": 811.4439856571515
+      "base_allowance_mtco2e": 785.3455714936679,
+      "adjusted_allowance_mtco2e": 805.1484171083913
     },
     {
       "participant_id": "MEX",
       "approach": "HR",
-      "base_allowance_mtco2e": -2729.17881412216,
-      "adjusted_allowance_mtco2e": -2700.8787600077385
+      "base_allowance_mtco2e": -2700.218288226292,
+      "adjusted_allowance_mtco2e": -2670.336771767462
     },
     {
       "participant_id": "MEX",
       "approach": "EQ",
-      "base_allowance_mtco2e": -1967.7187869621075,
-      "adjusted_allowance_mtco2e": -1934.5358425124582
+      "base_allowance_mtco2e": -1973.9577528527366,
+      "adjusted_allowance_mtco2e": -1939.1342541732233
     },
     {
       "participant_id": "NEP",
       "approach": "AP",
-      "base_allowance_mtco2e": 570.6048883114554,
-      "adjusted_allowance_mtco2e": 698.9964299267557
+      "base_allowance_mtco2e": 570.5767795577158,
+      "adjusted_allowance_mtco2e": 698.1755291840689
     },
     {
       "participant_id": "NEP",
       "approach": "HR",
-      "base_allowance_mtco2e": 292.61956395450306,
-      "adjusted_allowance_mtco2e": 368.73218670292295
+      "base_allowance_mtco2e": 294.316421185815,
+      "adjusted_allowance_mtco2e": 369.6697998077567
     },
     {
       "participant_id": "NEP",
       "approach": "EQ",
-      "base_allowance_mtco2e": -404.2884856010065,
-      "adjusted_allowance_mtco2e": -334.8501803594231
+      "base_allowance_mtco2e": -405.7959328847594,
+      "adjusted_allowance_mtco2e": -337.15084355800445
     },
     {
       "participant_id": "NOR",
       "approach": "AP",
-      "base_allowance_mtco2e": -141.78898880708448,
-      "adjusted_allowance_mtco2e": -126.09153323926412
+      "base_allowance_mtco2e": -143.31537806174626,
+      "adjusted_allowance_mtco2e": -124.29858416894741
     },
     {
       "participant_id": "NOR",
       "approach": "HR",
-      "base_allowance_mtco2e": -294.4931149058349,
-      "adjusted_allowance_mtco2e": -259.50359760358947
+      "base_allowance_mtco2e": -292.2627007654902,
+      "adjusted_allowance_mtco2e": -255.34443112017573
     },
     {
       "participant_id": "NOR",
       "approach": "EQ",
-      "base_allowance_mtco2e": -135.40254022072278,
-      "adjusted_allowance_mtco2e": -93.07770370243534
+      "base_allowance_mtco2e": -135.72835831049835,
+      "adjusted_allowance_mtco2e": -91.35914196840014
     },
     {
       "participant_id": "PAK",
       "approach": "AP",
-      "base_allowance_mtco2e": 9091.73554710112,
-      "adjusted_allowance_mtco2e": 8959.929922115987
+      "base_allowance_mtco2e": 9091.043149725048,
+      "adjusted_allowance_mtco2e": 8959.603728962202
     },
     {
       "participant_id": "PAK",
       "approach": "HR",
-      "base_allowance_mtco2e": 6840.3972376031725,
-      "adjusted_allowance_mtco2e": 6709.65854926791
+      "base_allowance_mtco2e": 6854.539028014997,
+      "adjusted_allowance_mtco2e": 6724.3514430284895
     },
     {
       "participant_id": "PAK",
       "approach": "EQ",
-      "base_allowance_mtco2e": 3026.6228100018498,
-      "adjusted_allowance_mtco2e": 2886.0414377811476
+      "base_allowance_mtco2e": 3017.1307114537713,
+      "adjusted_allowance_mtco2e": 2876.560314019638
     },
     {
       "participant_id": "POL",
       "approach": "AP",
-      "base_allowance_mtco2e": 589.797849676939,
-      "adjusted_allowance_mtco2e": 701.0566700453763
+      "base_allowance_mtco2e": 589.2427727086041,
+      "adjusted_allowance_mtco2e": 700.0990508077965
     },
     {
       "participant_id": "POL",
       "approach": "HR",
-      "base_allowance_mtco2e": -1942.406305294833,
-      "adjusted_allowance_mtco2e": -1875.6992564275602
+      "base_allowance_mtco2e": -1926.6924705911294,
+      "adjusted_allowance_mtco2e": -1860.4739918727896
     },
     {
       "participant_id": "POL",
       "approach": "EQ",
-      "base_allowance_mtco2e": -1078.9968193324194,
-      "adjusted_allowance_mtco2e": -1017.8351167228441
+      "base_allowance_mtco2e": -1081.6887052852326,
+      "adjusted_allowance_mtco2e": -1021.0508002963609
     },
     {
       "participant_id": "POR",
       "approach": "AP",
-      "base_allowance_mtco2e": 12.745869169134574,
-      "adjusted_allowance_mtco2e": 390.9857133224522
+      "base_allowance_mtco2e": 12.69099829055714,
+      "adjusted_allowance_mtco2e": 393.18224361477144
     },
     {
       "participant_id": "POR",
       "approach": "HR",
-      "base_allowance_mtco2e": -289.5250465923439,
-      "adjusted_allowance_mtco2e": 41.02069922470804
+      "base_allowance_mtco2e": -287.6590616347162,
+      "adjusted_allowance_mtco2e": 43.3109300653457
     },
     {
       "participant_id": "POR",
       "approach": "EQ",
-      "base_allowance_mtco2e": -453.7907170885382,
-      "adjusted_allowance_mtco2e": -109.16470776717375
+      "base_allowance_mtco2e": -454.5212162111551,
+      "adjusted_allowance_mtco2e": -108.59421043726593
     },
     {
       "participant_id": "RUS",
       "approach": "AP",
-      "base_allowance_mtco2e": -49166.69448010553,
-      "adjusted_allowance_mtco2e": -49183.821436580736
+      "base_allowance_mtco2e": -49525.12210461343,
+      "adjusted_allowance_mtco2e": -49540.210965568396
     },
     {
       "participant_id": "RUS",
       "approach": "HR",
-      "base_allowance_mtco2e": -9589.201950870089,
-      "adjusted_allowance_mtco2e": -9599.470698271472
+      "base_allowance_mtco2e": -9519.3687569874,
+      "adjusted_allowance_mtco2e": -9528.381881324269
     },
     {
       "participant_id": "RUS",
       "approach": "EQ",
-      "base_allowance_mtco2e": -4741.765075633402,
-      "adjusted_allowance_mtco2e": -4751.180183712699
+      "base_allowance_mtco2e": -4752.172037001235,
+      "adjusted_allowance_mtco2e": -4760.425578728109
     },
     {
       "participant_id": "R_ASE",
       "approach": "AP",
-      "base_allowance_mtco2e": 21691.693772536808,
-      "adjusted_allowance_mtco2e": 21816.61266886185
+      "base_allowance_mtco2e": 21670.202316556177,
+      "adjusted_allowance_mtco2e": 21794.4589899962
     },
     {
       "participant_id": "R_ASE",
       "approach": "HR",
-      "base_allowance_mtco2e": 6155.774507340357,
-      "adjusted_allowance_mtco2e": 6230.671678584896
+      "base_allowance_mtco2e": 6267.724503423771,
+      "adjusted_allowance_mtco2e": 6341.947524680517
     },
     {
       "participant_id": "R_ASE",
       "approach": "EQ",
-      "base_allowance_mtco2e": -3930.161594036388,
-      "adjusted_allowance_mtco2e": -3861.4906126072524
+      "base_allowance_mtco2e": -3974.3433893922556,
+      "adjusted_allowance_mtco2e": -3906.3755260697326
     },
     {
       "participant_id": "R_ASP",
       "approach": "AP",
-      "base_allowance_mtco2e": -9208.281883279604,
-      "adjusted_allowance_mtco2e": -9279.083558638262
+      "base_allowance_mtco2e": -9248.310292587266,
+      "adjusted_allowance_mtco2e": -9313.621526442865
     },
     {
       "participant_id": "R_ASP",
       "approach": "HR",
-      "base_allowance_mtco2e": -17134.441280691648,
-      "adjusted_allowance_mtco2e": -17144.24227446195
+      "base_allowance_mtco2e": -17052.353084850096,
+      "adjusted_allowance_mtco2e": -17058.740800310785
     },
     {
       "participant_id": "R_ASP",
       "approach": "EQ",
-      "base_allowance_mtco2e": -12261.410858828933,
-      "adjusted_allowance_mtco2e": -12257.320968134212
+      "base_allowance_mtco2e": -12274.914700516938,
+      "adjusted_allowance_mtco2e": -12267.281727201813
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "AP",
+      "base_allowance_mtco2e": 1800.0913853830807,
+      "adjusted_allowance_mtco2e": 1736.7285578187732
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "HR",
+      "base_allowance_mtco2e": -1546.7363781103443,
+      "adjusted_allowance_mtco2e": -1584.5852949289895
+    },
+    {
+      "participant_id": "R_CAS",
+      "approach": "EQ",
+      "base_allowance_mtco2e": 395.8398213438538,
+      "adjusted_allowance_mtco2e": 361.18062852635
     },
     {
       "participant_id": "R_CSA",
       "approach": "AP",
-      "base_allowance_mtco2e": 19989.293053445854,
-      "adjusted_allowance_mtco2e": 19769.153449942678
+      "base_allowance_mtco2e": 19982.923484290393,
+      "adjusted_allowance_mtco2e": 19763.905811270277
     },
     {
       "participant_id": "R_CSA",
       "approach": "HR",
-      "base_allowance_mtco2e": 11563.31391424287,
-      "adjusted_allowance_mtco2e": 11367.214900137387
+      "base_allowance_mtco2e": 11619.488140594109,
+      "adjusted_allowance_mtco2e": 11424.597856029395
     },
     {
       "participant_id": "R_CSA",
       "approach": "EQ",
-      "base_allowance_mtco2e": 14972.43943708067,
-      "adjusted_allowance_mtco2e": 14766.965606216492
+      "base_allowance_mtco2e": 14963.313173507126,
+      "adjusted_allowance_mtco2e": 14758.373118397745
     },
     {
       "participant_id": "R_EAF",
       "approach": "AP",
-      "base_allowance_mtco2e": 79725.09449347916,
-      "adjusted_allowance_mtco2e": 79621.1618869789
+      "base_allowance_mtco2e": 79724.29394493664,
+      "adjusted_allowance_mtco2e": 79621.82853174339
     },
     {
       "participant_id": "R_EAF",
       "approach": "HR",
-      "base_allowance_mtco2e": 74930.04245018362,
-      "adjusted_allowance_mtco2e": 74837.90977879406
+      "base_allowance_mtco2e": 74959.583308262,
+      "adjusted_allowance_mtco2e": 74868.58097603288
     },
     {
       "participant_id": "R_EAF",
       "approach": "EQ",
-      "base_allowance_mtco2e": 71184.74755979309,
-      "adjusted_allowance_mtco2e": 71088.33161040043
+      "base_allowance_mtco2e": 71171.41999492793,
+      "adjusted_allowance_mtco2e": 71075.7736402008
     },
     {
       "participant_id": "R_EEU",
       "approach": "AP",
-      "base_allowance_mtco2e": 4463.961105857718,
-      "adjusted_allowance_mtco2e": 4293.991326162736
+      "base_allowance_mtco2e": 4449.986062946437,
+      "adjusted_allowance_mtco2e": 4282.58208511464
     },
     {
       "participant_id": "R_EEU",
       "approach": "HR",
-      "base_allowance_mtco2e": -12624.686076673155,
-      "adjusted_allowance_mtco2e": -12758.517060971504
+      "base_allowance_mtco2e": -12509.851453396237,
+      "adjusted_allowance_mtco2e": -12641.747027437576
     },
     {
       "participant_id": "R_EEU",
       "approach": "EQ",
-      "base_allowance_mtco2e": -9313.647832987,
-      "adjusted_allowance_mtco2e": -9449.138636187397
+      "base_allowance_mtco2e": -9337.937476621264,
+      "adjusted_allowance_mtco2e": -9471.89988977034
     },
     {
       "participant_id": "R_MEA",
       "approach": "AP",
-      "base_allowance_mtco2e": 9902.322667047596,
-      "adjusted_allowance_mtco2e": 10102.257096652915
+      "base_allowance_mtco2e": 9898.045652862147,
+      "adjusted_allowance_mtco2e": 10103.156980255395
     },
     {
       "participant_id": "R_MEA",
       "approach": "HR",
-      "base_allowance_mtco2e": -7680.771532572564,
-      "adjusted_allowance_mtco2e": -7463.36256693704
+      "base_allowance_mtco2e": -7571.294775986711,
+      "adjusted_allowance_mtco2e": -7351.311793258672
     },
     {
       "participant_id": "R_MEA",
       "approach": "EQ",
-      "base_allowance_mtco2e": -3475.242376170303,
-      "adjusted_allowance_mtco2e": -3236.8435742909146
+      "base_allowance_mtco2e": -3496.7833857357236,
+      "adjusted_allowance_mtco2e": -3255.062935471655
     },
     {
       "participant_id": "R_NEU",
       "approach": "AP",
-      "base_allowance_mtco2e": 1857.9433880509025,
-      "adjusted_allowance_mtco2e": 1848.3305194182567
+      "base_allowance_mtco2e": 1857.4194491721944,
+      "adjusted_allowance_mtco2e": 1849.7018318351968
     },
     {
       "participant_id": "R_NEU",
       "approach": "HR",
-      "base_allowance_mtco2e": -2907.376267433742,
-      "adjusted_allowance_mtco2e": -2913.1398203413596
+      "base_allowance_mtco2e": -2878.2519943559237,
+      "adjusted_allowance_mtco2e": -2882.8620073218017
     },
     {
       "participant_id": "R_NEU",
       "approach": "EQ",
-      "base_allowance_mtco2e": -2794.10262668187,
-      "adjusted_allowance_mtco2e": -2799.387056362032
+      "base_allowance_mtco2e": -2801.381659394816,
+      "adjusted_allowance_mtco2e": -2805.6031627218767
     },
     {
       "participant_id": "R_SAF",
       "approach": "AP",
-      "base_allowance_mtco2e": 8447.041753697165,
-      "adjusted_allowance_mtco2e": 8358.493080876102
+      "base_allowance_mtco2e": 8446.196813725564,
+      "adjusted_allowance_mtco2e": 8360.02628523251
     },
     {
       "participant_id": "R_SAF",
       "approach": "HR",
-      "base_allowance_mtco2e": 4025.3780997063814,
-      "adjusted_allowance_mtco2e": 3958.6247896581303
+      "base_allowance_mtco2e": 4052.710333427961,
+      "adjusted_allowance_mtco2e": 3987.58519680043
     },
     {
       "participant_id": "R_SAF",
       "approach": "EQ",
-      "base_allowance_mtco2e": 5414.601503638516,
-      "adjusted_allowance_mtco2e": 5347.925519715381
+      "base_allowance_mtco2e": 5409.745960046403,
+      "adjusted_allowance_mtco2e": 5344.467396365263
     },
     {
       "participant_id": "R_SIS",
       "approach": "AP",
-      "base_allowance_mtco2e": 1330.4544281348146,
-      "adjusted_allowance_mtco2e": 1409.1511002970121
+      "base_allowance_mtco2e": 1330.3995790327954,
+      "adjusted_allowance_mtco2e": 1411.8014354671523
     },
     {
       "participant_id": "R_SIS",
       "approach": "HR",
-      "base_allowance_mtco2e": 296.64731514155847,
-      "adjusted_allowance_mtco2e": 377.24216572035607
+      "base_allowance_mtco2e": 302.9151109099239,
+      "adjusted_allowance_mtco2e": 384.9255441280372
     },
     {
       "participant_id": "R_SIS",
       "approach": "EQ",
-      "base_allowance_mtco2e": -279.58080527896186,
-      "adjusted_allowance_mtco2e": -192.30461539991182
+      "base_allowance_mtco2e": -282.07220586572976,
+      "adjusted_allowance_mtco2e": -193.1763294307667
     },
     {
       "participant_id": "R_WAF",
       "approach": "AP",
-      "base_allowance_mtco2e": 21485.8203757452,
-      "adjusted_allowance_mtco2e": 21344.782776004515
+      "base_allowance_mtco2e": 21484.18641204612,
+      "adjusted_allowance_mtco2e": 21345.17268850105
     },
     {
       "participant_id": "R_WAF",
       "approach": "HR",
-      "base_allowance_mtco2e": 15008.484676614109,
-      "adjusted_allowance_mtco2e": 14892.108935840615
+      "base_allowance_mtco2e": 15048.8643563139,
+      "adjusted_allowance_mtco2e": 14934.035712005203
     },
     {
       "participant_id": "R_WAF",
       "approach": "EQ",
-      "base_allowance_mtco2e": 11483.102526728439,
-      "adjusted_allowance_mtco2e": 11363.659362347344
+      "base_allowance_mtco2e": 11467.339747224058,
+      "adjusted_allowance_mtco2e": 11349.050741997808
     },
     {
       "participant_id": "SAF",
       "approach": "AP",
-      "base_allowance_mtco2e": 2149.8617404509073,
-      "adjusted_allowance_mtco2e": 2101.0609341258355
+      "base_allowance_mtco2e": 2149.1668877014035,
+      "adjusted_allowance_mtco2e": 2099.8262223926895
     },
     {
       "participant_id": "SAF",
       "approach": "HR",
-      "base_allowance_mtco2e": -1499.7061800762272,
-      "adjusted_allowance_mtco2e": -1571.6580642074287
+      "base_allowance_mtco2e": -1477.1487954776298,
+      "adjusted_allowance_mtco2e": -1549.2826098455935
     },
     {
       "participant_id": "SAF",
       "approach": "EQ",
-      "base_allowance_mtco2e": 372.5380621092422,
-      "adjusted_allowance_mtco2e": 289.4690506883228
+      "base_allowance_mtco2e": 369.64831255975787,
+      "adjusted_allowance_mtco2e": 285.96391702850576
     },
     {
       "participant_id": "SWE",
       "approach": "AP",
-      "base_allowance_mtco2e": -344.3866801858404,
-      "adjusted_allowance_mtco2e": -470.4079754523194
+      "base_allowance_mtco2e": -347.6902687318765,
+      "adjusted_allowance_mtco2e": -471.9388750145735
     },
     {
       "participant_id": "SWE",
       "approach": "HR",
-      "base_allowance_mtco2e": -372.679174481024,
-      "adjusted_allowance_mtco2e": -479.591494598135
+      "base_allowance_mtco2e": -369.6703088529759,
+      "adjusted_allowance_mtco2e": -475.21940528801
     },
     {
       "participant_id": "SWE",
       "approach": "EQ",
-      "base_allowance_mtco2e": -293.8563681247308,
-      "adjusted_allowance_mtco2e": -404.43851358130087
+      "base_allowance_mtco2e": -294.50501367068176,
+      "adjusted_allowance_mtco2e": -404.10649028642234
     },
     {
       "participant_id": "TUR",
       "approach": "AP",
-      "base_allowance_mtco2e": 1493.1979664668459,
-      "adjusted_allowance_mtco2e": 1525.8931940236273
+      "base_allowance_mtco2e": 1491.1723138448494,
+      "adjusted_allowance_mtco2e": 1526.3309009418856
     },
     {
       "participant_id": "TUR",
       "approach": "HR",
-      "base_allowance_mtco2e": -382.6719759708599,
-      "adjusted_allowance_mtco2e": -344.6446465576369
+      "base_allowance_mtco2e": -369.6438637840779,
+      "adjusted_allowance_mtco2e": -330.23168132760725
     },
     {
       "participant_id": "TUR",
       "approach": "EQ",
-      "base_allowance_mtco2e": -915.4553155048175,
-      "adjusted_allowance_mtco2e": -873.2101863159287
+      "base_allowance_mtco2e": -919.6099102461894,
+      "adjusted_allowance_mtco2e": -875.9109486052515
     },
     {
       "participant_id": "UK",
       "approach": "AP",
-      "base_allowance_mtco2e": 2096.144474214467,
-      "adjusted_allowance_mtco2e": 2132.69424996703
+      "base_allowance_mtco2e": 2094.2838746245147,
+      "adjusted_allowance_mtco2e": 2134.3963372323815
     },
     {
       "participant_id": "UK",
       "approach": "HR",
-      "base_allowance_mtco2e": -2065.5148885770345,
-      "adjusted_allowance_mtco2e": -2009.434312857029
+      "base_allowance_mtco2e": -2038.8744533502063,
+      "adjusted_allowance_mtco2e": -1980.772647592833
     },
     {
       "participant_id": "UK",
       "approach": "EQ",
-      "base_allowance_mtco2e": -472.05512326900043,
-      "adjusted_allowance_mtco2e": -406.95272585690685
+      "base_allowance_mtco2e": -476.4191128055463,
+      "adjusted_allowance_mtco2e": -409.10494419308424
     },
     {
       "participant_id": "USA",
       "approach": "AP",
-      "base_allowance_mtco2e": -104934.91627031346,
-      "adjusted_allowance_mtco2e": -104882.54796663845
+      "base_allowance_mtco2e": -105758.98500149105,
+      "adjusted_allowance_mtco2e": -105705.8997202754
     },
     {
       "participant_id": "USA",
       "approach": "HR",
-      "base_allowance_mtco2e": -27261.665584460177,
-      "adjusted_allowance_mtco2e": -27230.26730987146
+      "base_allowance_mtco2e": -27020.959591627427,
+      "adjusted_allowance_mtco2e": -26989.249826292435
     },
     {
       "participant_id": "USA",
       "approach": "EQ",
-      "base_allowance_mtco2e": 277.9486822804447,
-      "adjusted_allowance_mtco2e": 306.73682334586596
+      "base_allowance_mtco2e": 258.75639203978426,
+      "adjusted_allowance_mtco2e": 287.79381142510846
     },
     {
       "participant_id": "UZB",
       "approach": "AP",
-      "base_allowance_mtco2e": 1068.345321398125,
-      "adjusted_allowance_mtco2e": 1048.1424840610562
+      "base_allowance_mtco2e": 1068.2778997487515,
+      "adjusted_allowance_mtco2e": 1050.1743147079003
     },
     {
       "participant_id": "UZB",
       "approach": "HR",
-      "base_allowance_mtco2e": -167.4500755261829,
-      "adjusted_allowance_mtco2e": -179.5269890202941
+      "base_allowance_mtco2e": -159.9560645792078,
+      "adjusted_allowance_mtco2e": -170.73399112575717
     },
     {
       "participant_id": "UZB",
       "approach": "EQ",
-      "base_allowance_mtco2e": 60.65889597730029,
-      "adjusted_allowance_mtco2e": 49.60036393729042
+      "base_allowance_mtco2e": 59.09230483640545,
+      "adjusted_allowance_mtco2e": 49.237567766754125
     }
   ]
 }
