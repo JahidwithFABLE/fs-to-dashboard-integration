@@ -1,4 +1,4 @@
-# Scenathon 2026–27 Fair Share calculation
+# Scenathon 2026-27 Fair Share calculation
 
 Calculate base and adjusted allowances from the selected dashboard emissions and the percentages released by FABLE. The percentages stay fixed across dashboard selections. Emissions, allowances and gaps are recalculated for each selection. Table, plot and map design will be agreed separately.
 
