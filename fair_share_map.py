@@ -51,7 +51,8 @@ def render_fair_share_map(
     "absolute" (MtCO2e). Set max_abs to a positive limit to keep the same
     symmetric colour scale across different dashboard selections.
 
-    The relative gap is (allowance - emissions) / abs(emissions) × 100.
+    For the released weights the relative gap is (fixed Current Trends allowance
+    - selected emissions) / abs(selected emissions) × 100. The engine supplies it.
     It is not the change from Base to Adjusted. Near-zero emissions have
     no relative gap. A near-zero signed gap is yellow in either view.
     """
@@ -71,9 +72,11 @@ def render_fair_share_map(
     if len(details) != len(rows):
         raise ValueError("Fair Share results contain duplicate participant–approach rows.")
 
+    metadata = result.get("metadata") or {}
+    fixed = metadata.get("allowance_basis") == "fixed-current-trends-pretrade"
     countries, definitions = _map_geometry()
     records = {
-        (i, approach): _country_result(iso, name, approach, details, variant, metric)
+        (i, approach): _country_result(iso, name, approach, details, variant, metric, fixed=fixed)
         for i, (iso, name, _) in enumerate(countries)
         for approach in APPROACHES
     }
@@ -102,7 +105,7 @@ def render_fair_share_map(
     unit = "%" if metric == "relative" else "MtCO₂e"
     metric_title = "Relative emissions gap (%)" if metric == "relative" else "Emissions gap (MtCO₂e)"
     title = f"{variant.title()} Fair Share allowance · {metric_title}"
-    subtitle = _scope_label(result.get("metadata") or {})
+    subtitle = _scope_label(metadata)
     scale_number = f"{limit:,.2f}".rstrip("0").rstrip(".") if limit >= 0.01 else f"{limit:.3g}"
     scale_label = f"{scale_number} {unit}"
     return f"""<!doctype html>
@@ -136,7 +139,7 @@ each member country displays the same regional result.</p>
 """
 
 
-def _country_result(iso, country, approach, details, variant, metric):
+def _country_result(iso, country, approach, details, variant, metric, *, fixed=False):
     participant = _MEMBER_OF.get(iso)
     row = details.get((participant, approach))
     heading = f"{country} ({iso}) · {approach} · {variant.title()}"
@@ -154,20 +157,19 @@ def _country_result(iso, country, approach, details, variant, metric):
     else:
         status = "Above allowance" if gap < 0 else "Below allowance"
 
-    relative = None
-    if gap is not None and emissions is not None and abs(emissions) > ZERO_TOLERANCE:
-        relative = _finite_or_none(100 * (gap / abs(emissions)))
+    relative = _finite_or_none(values["relative_gap_pct"])
     value = relative if metric == "relative" else gap
 
     participant_label = f"FABLE participant: {participant}"
     if participant.startswith("R_"):
         participant_label += " · Regional totals, not a separate country result."
+    allowance_label = "Fixed Current Trends allowance (before trade)" if fixed else "Fair allowance"
     info = "\n".join([
         heading,
         participant_label,
         f"Status: {status}",
-        f"Cumulative net AFOLU: {_format(emissions, 'MtCO₂e')}",
-        f"Fair allowance: {_format(allowance, 'MtCO₂e')}",
+        f"Selected pathway net AFOLU: {_format(emissions, 'MtCO₂e')}",
+        f"{allowance_label}: {_format(allowance, 'MtCO₂e')}",
         f"Signed gap (allowance − emissions): {_format(gap, 'MtCO₂e')}",
         f"Relative gap: {_format(relative, '%')}",
     ])
@@ -186,13 +188,15 @@ def _format(value, unit):
 
 
 def _scope_label(metadata):
-    parts = [str(metadata["pathway"])] if metadata.get("pathway") else []
+    parts = [f"Selected emissions: {metadata['pathway']}"] if metadata.get("pathway") else []
     trade_adj = metadata.get("trade_adj")
     if isinstance(trade_adj, bool):
         parts.append("After trade adjustment" if trade_adj else "Before trade adjustment")
     start, end = metadata.get("period_start"), metadata.get("period_end")
     if start is not None and end is not None:
         parts.append(f"{start}–{end}")
+    if metadata.get("allowance_basis") == "fixed-current-trends-pretrade":
+        parts.append("Fixed allowance reference: initial Current Trends (before trade)")
     return " · ".join(parts)
 
 
@@ -217,7 +221,7 @@ def _map_geometry():
     """Decode the bundled map once and share its outlines across all panels."""
     countries = json.loads(gzip.decompress(base64.b64decode(_GEOMETRY)))
     definitions = "".join(
-        f'<path id="country-{i}" d="{path}" fill-rule="evenodd"/>'
+        f'<path id="country-{i}" d="{escape(path, quote=True)}" fill-rule="evenodd"/>'
         for i, (_, _, path) in enumerate(countries)
     )
     return countries, definitions
@@ -333,6 +337,8 @@ _MEMBER_OF = {
 # Offline geometry copied from the map prototype. Natural Earth 1:50m
 # Admin 0 Countries, simplified and projected to Robinson. The compressed
 # data below is an asset, not calculation or display logic.
+# Unchanged Natural Earth outline asset from the previous GitHub version.
+# Gzip/base64 wraps a JSON list of ISO3 codes, names and numeric SVG paths.
 _GEOMETRY = (
     'H4sIAAAAAAACA2y9284Gu22meSuGj70C7SUeZoB0d4A4CJJJBkljDlaSNd0LHduANxhMX/1Uic/LKpVz9P/kp9KWIimKIv/7f//l'
     'v/xff/XLX/3yX37+zb/++K//70/Xv79Of9F6Lb9Kf1FnH7/4mxvMtsE2HUzZwbzBNv3XuhxsgOZg9qpa2+CFfxeu1cGSNlhsbTB7'

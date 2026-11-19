@@ -1,80 +1,87 @@
-# Scenathon 2026–27 Fair Share dashboard integration
+# IIASA · Scenathon 2026–27 Fair Share handover
 
-Calculate base and adjusted allowances from the selected dashboard emissions and the percentages released by FABLE. The percentages stay fixed across dashboard selections. Emissions, allowances and gaps are recalculated for each selection. The interactive map uses the results of this calculation.
+This update freezes the Fair Share allowances from **initial Current Trends before trade adjustment**. A dashboard selection changes the emissions and the resulting gaps. It does not change the benchmark or the weights.
 
-## 1. Install and load the weights
+| File | Role |
+| --- | --- |
+| [fair_share.py](fair_share.py) | Includes and validates the frozen reference for all 37 participants and 111 participant–approach pairs, with Base and Adjusted allowances. Python 3.10+, standard library only. |
+| [fair_share_weights.json](fair_share_weights.json) | Unchanged released AP, HR and EQ (IEPC) weights and 40,000 MtCO₂e budget. |
+| [fair_share_map.py](fair_share_map.py) | Same renderer interface and map design. Labels identify the fixed reference and the selected pathway. |
 
-| File | Action |
-|---|---|
-| [fair_share.py](fair_share.py) | Loads the released weights and calculates allowances and gaps. Requires Python 3.10+ with no third-party dependencies. |
-| [fair_share_weights.json](fair_share_weights.json) | Released production input. Pass this file to `load_weights()`. |
-| [fair_share_map.py](fair_share_map.py) | Renders the calculation result as an interactive world map. |
-| [fair_share_weights_TEMPLATE.json](fair_share_weights_TEMPLATE.json) | Schema example only. The loader rejects it as a production input. |
-
-`scenathon-2026-fs-37-v1` is the released set for 37 participants. It contains 111 participant–approach rows and the agreed cumulative budget of **40,000 MtCO2e for 2026–2050**. The budget is already stored in `budget_mtco2e`. Do not set it separately in the dashboard.
-
-Call `load_weights()` at startup and reload when FABLE issues a new version. `EQ` is the dashboard code for IEPC. `FS_pct` and `FS_adj_pct` are percentages of the cohort-wide required reduction. Each series sums to 100 per approach. They are not percentages of the budget. Keep the full numeric precision and preserve signed adjusted percentages. The reference metadata describes how the weights were calibrated. It does not select or restrict the live pathway. This module uses percentage schema version 2 and does not accept the older fixed-allowance JSON.
-
-## 2. Pass the selected reporting rows
-
-1. When the dashboard updates, call the backend query that supplies the `REPORTING_AGGREGATE` download for the same Scenathon, date or snapshot, pathway and trade stage. Pass the rows before Excel or CSV export. The live calculation does not read an Excel workbook or an exported snapshot file.
-2. Fetch the full 37-participant roster for that selection. Do not limit this query to the countries or regions shown in the dashboard. Provide `country`, `year`, `calcallagrico2e` and `calcalllandco2e`. There must be one row per participant for each of **2030, 2035, 2040, 2045 and 2050**, for 185 calculation rows. If the rows also include `pathway_name_default`, `trade_adj`, `scenathon_id` or `snapshot_id`, they must match the selection. `trade_adj=True` means after trade adjustment.
-3. Pass the two emissions fields in **MtCO2e/year**. The module multiplies each annual rate by five years and preserves negative values. It does not count the 2025 opening boundary as another block. Do not multiply by five in the query or convert to Gt before passing the values.
-4. Align the platform codes with the FABLE participant IDs. The module accepts the dashboard codes below and returns the canonical FABLE IDs. Confirm these aliases against `country` in the live export, especially the separate `R_ZAF` region and `ZAF` country. Do not include both the canonical code and its alias as separate rows.
-
-| Dashboard `country` | FABLE JSON ID |
-|---|---|
-| DNK, GRC, GTM | DEN, GRE, GUA |
-| IRL, NPL, PRT | IRE, NEP, POR |
-| GBR, ZAF, R_ZAF | UK, SAF, R_SAF |
+## 1. Load the existing weights and bundled benchmark at startup
 
 ```python
-from fair_share import calculate, load_weights
+from pathlib import Path
 
-# Startup. Use the path to the deployed release JSON.
-weights = load_weights("fair_share_weights.json")
+from fair_share import calculate, load_benchmark, load_weights
+from fair_share_map import render_fair_share_map
 
-# Dashboard refresh. Reuse the live query behind the report download.
-result = calculate(
-    indicator_rows=reporting_aggregate_rows,
-    weights=weights,
-    pathway=selected_pathway_value,      # Raw query value rather than translated label.
-    trade_adj=selected_after_trade,      # Boolean from the backend selection.
-    scenathon_id=selected_scenathon_id,
-    snapshot_id=selected_snapshot_id,    # Use the selected date if it is the query's snapshot key.
-)
+# Set this to the deployed directory containing the weights JSON.
+release_dir = Path(".")
+weights = load_weights(release_dir / "fair_share_weights.json")
+benchmark = load_benchmark(weights=weights)  # Uses the released benchmark bundled in fair_share.py.
 ```
 
-If the file is not released or the live selection is incomplete or invalid, log the specific error and show **Fair Share results are unavailable for this selection**. Do not treat missing emissions as zero, reuse stale output or renormalize over a partial cohort.
+Deploy the updated Python modules with the existing released weights JSON. The weights version is `scenathon-2026-fs-37-v1`. The benchmark version is `scenathon-2026-ct-pretrade-37-v1`. Do not regenerate the benchmark from a dashboard selection or overwrite it with a newly downloaded Current Trends export.
 
-### Render the interactive map
+The benchmark uses FABLE's corrected initial Current Trends submissions before trade adjustment for Scenathon **9**. Its full-roster 2026–2050 net AFOLU is **297,050.7654647585 MtCO₂e**. The required reduction at calibration is that total minus the 40,000 MtCO₂e budget. All six stored allocation totals reconcile to the budget. The benchmark's `snapshot_id` is a FABLE provenance identifier, not an IIASA database key. The artifact was extracted and numerically reconciled against the corrected local calibration audit used to release the weights. It was not made from the incomplete 19 November dashboard preview.
 
-Pass the result from `fair_share.calculate()` to the map renderer. Do not pass the weights JSON directly.
+## 2. Read live emissions for the dashboard selection
+
+Use the backend rows that supply the **Indicators** sheet in the Scenathon snapshot export. Pass them before any aggregation or formatting into a chart. You do not need to read an Excel workbook in the dashboard.
+
+- Query the complete **37-participant cohort** for one selected event, snapshot, pathway and trade stage. Do not apply country or region display filters to this query.
+- Required columns are `country`, `year`, `calcallagrico2e` and `calcalllandco2e`. The expected horizon is **185 rows** with one row per participant in each of 2030, 2035, 2040, 2045 and 2050. If present, `pathway_name_default`, `trade_adj`, `scenathon_id` and `snapshot_id` must match the live selection.
+- Pass signed emissions rates in **MtCO₂e/year**. The module multiplies each reporting block by five internally. The 2025 opening boundary is excluded.
+- The module resolves `DNK → DEN`, `GRC → GRE`, `GTM → GUA`, `IRL → IRE`, `NPL → NEP`, `PRT → POR`, `GBR → UK`, `ZAF → SAF` and `R_ZAF → R_SAF`. Do not send a canonical ID and alias for the same participant-year.
 
 ```python
-from fair_share_map import render_fair_share_map
+# Run when the selected pathway, snapshot or trade stage changes.
+result = calculate(
+    indicator_rows=selected_reporting_rows,
+    weights=weights,
+    benchmark=benchmark,
+    pathway=selected_pathway,       # Exact backend value
+    trade_adj=selected_after_trade,  # Boolean
+    scenathon_id=selected_event_id,  # 9 for this release
+    snapshot_id=selected_snapshot_id,
+)
 
 map_html = render_fair_share_map(result)
 ```
 
-The default view shows the **adjusted relative emissions gap**. Serve the returned document as `text/html` or load it in an iframe with scripts enabled. Render it again when the dashboard selection changes. No changes to the calculation module or weights JSON are required.
+The change to the dashboard call is the new required **`benchmark=benchmark`** argument. A later pathway, snapshot or trade stage still uses the same benchmark. A different Scenathon requires its own released benchmark.
 
-## 3. What the calculation does
+Missing or duplicate live inputs stop the calculation. Surface an unavailable result and log the cause. Do not substitute zeros, show stale values or rescale the weights over an incomplete cohort. If the corrected submissions have not propagated to the backend, the packaged benchmark is still valid, but the emitted live comparison can only be as good as the selected reporting data. The November 19 export with blank Nepal and Portugal fields will fail validation.
 
-| Quantity | Calculation and meaning |
-|---|---|
-| Participant emissions `E_i` | `5 × sum(agriculture rate + signed land-use rate)` across the five reporting years. This is cumulative 2026–2050. |
-| Cohort gap `G` | `sum(E_i across all 37) − agreed budget`. Positive means a reduction is needed. Negative means the cohort is below budget. Keep the sign. |
-| Base and adjusted reduction assignments | `G × FS_pct / 100` and `G × FS_adj_pct / 100`, for each participant and approach. |
-| Base and adjusted allowances | `E_i − corresponding reduction assignment`. A negative allowance is valid. |
-| Signed and relative gaps | `allowance − E_i`, and `100 × signed gap / abs(E_i)`. A negative signed gap means emissions exceed that allowance. The relative gap is null when `abs(E_i) ≤ 10⁻⁹ MtCO2e`. |
+## 3. Calculations and plotting
 
-`summary` has 37 participant rows. `detail` has 111 rows with both weights, allowances, assignments and gaps. `metadata` records the selected scope, weight version and cohort gap. `reconciliation` contains the six allowance totals. Apply any view filters **after** calculation. The calculation module returns results without rendering the dashboard.
+At calibration, for each approach and variant:
 
-Allowances use the same selected emissions shown in the result. They allocate the cohort's gap rather than assess performance against an independent emissions benchmark. For a positive cohort gap and positive weights, all corresponding participant gaps will be negative. Do not interpret that pattern as independent country-level compliance.
+```text
+Current Trends cohort gap = sum(Current Trends net AFOLU) − budget
+Fixed participant allowance = Current Trends participant net AFOLU
+                              − (released weight / 100 × Current Trends cohort gap)
+```
 
-## 4. Verify before deployment
+For a dashboard selection:
 
-- Compare a test export and backend rows from the same selection. Verify the code aliases and exactly 185 distinct calculation rows. The Excel snapshot is useful for this check only.
-- Check that all six allowance totals match the budget. On a pathway or trade-stage change, check that the dashboard fetches the new reporting rows and recalculates the results with the same weights. Check that a missing or duplicate block produces the unavailable state.
-- Where the dashboard shows **Cumulative Net AFOLU (2025–2050)**, compare the calculation to that indicator only after confirming the same cohort, trade stage, GHG coverage and integration rule. Here 2025 is the opening boundary and is excluded as a row. Convert Gt to Mt for the comparison. A displayed target of 40 GtCO2e is 40,000 MtCO2e.
+```text
+Selected net AFOLU = 5 × sum(selected agriculture rate + signed land-use rate)
+Signed gap = fixed Current Trends allowance − selected net AFOLU
+Relative gap (%) = 100 × signed gap / abs(selected net AFOLU)
+```
+
+Negative gaps mean selected emissions exceed the allowance. Relative gap is null at or near zero selected net emissions. Negative net emissions and allowances are valid and remain signed.
+
+- **Bar chart or comparison plot:** read selected `net_afolu_mtco2e` for the emissions series and fixed `base.allowance_mtco2e` / `adjusted.allowance_mtco2e` for the reference. An emissions-to-allowance index, if shown, must also use the fixed allowance.
+- **Table and map:** read `gap_mtco2e` and `relative_gap_pct` from the result. Do not recalculate the allowance or derive the gap from the reduction assignment. Label the two series **Selected pathway emissions** and **Fixed Current Trends allowance (before trade)**.
+- **Regional view:** sum selected emissions and fixed allowances separately before computing regional gaps or indices. The country polygons in the map are not an aggregation crosswalk.
+- **Scale:** use the same map scale across pathway comparisons when useful by supplying a common `max_abs`. Styles, colour conventions, layout and the renderer call do not otherwise change.
+- **Metadata:** `pathway`, `trade_adj` and `snapshot_id` describe the live selection. The `benchmark_*` fields describe the fixed reference. The existing `required_reduction_mtco2e` is the selected cohort's arithmetic gap to the budget, not an input into the allowances. `baseline_reduction_assignment_mtco2e` and its compatibility field `reduction_assignment_mtco2e` are fixed Current Trends assignments, not the selected pathway gaps. Update any existing tooltip or chart labels that conflate these quantities.
+
+The result retains 37 summary rows, 111 detail rows and six reconciliation rows. Each detail row keeps the existing Base and Adjusted objects. No calculator or trade-adjustment logic changes are needed.
+
+## 4. Verify
+
+On deployment, compare the live reporting rows to a valid selected snapshot. Switch pathway, snapshot or trade stage and verify that the fixed allowance values stay unchanged, while the selected emissions and gaps update. Confirm that all six allowances reconcile to the 40,000 MtCO₂e budget across the full cohort.
