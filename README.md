@@ -1,6 +1,6 @@
 # Scenathon 2026-27 Fair Share calculation
 
-Calculate base and adjusted allowances from the selected dashboard emissions and the percentages released by FABLE. The percentages stay fixed across dashboard selections. Emissions, allowances and gaps are recalculated for each selection. Table, plot and map design will be agreed separately.
+Calculate base and adjusted allowances from the selected dashboard emissions and the percentages released by FABLE. The percentages stay fixed across dashboard selections. Emissions, allowances and gaps are recalculated for each selection. The interactive map uses the results of this calculation.
 
 ## 1. Install and load the weights
 
@@ -8,6 +8,7 @@ Calculate base and adjusted allowances from the selected dashboard emissions and
 |---|---|
 | `fair_share.py` | Put this module in the calculation layer. It uses Python 3.10+ with no third-party dependencies. |
 | `fair_share_weights_TEMPLATE.json` | Use this only to inspect the input format. Load the populated `fair_share_weights.json` supplied by FABLE when it is released. |
+| `fair_share_map.py` | Use this in the display layer to render the interactive world map from the calculation result. |
 
 Call `load_weights()` at startup, and reload when FABLE issues a new version. The file has 38 participant IDs and 114 rows, one per participant and approach. `EQ` is the dashboard code for IEPC. `FS_pct` and `FS_adj_pct` are percentages of the cohort-wide required reduction. Each series sums to 100 per approach. They are not percentages of the budget. Keep the full numeric precision and preserve signed adjusted percentages. The JSON also provides the agreed budget in MtCO2e, the period, the rate basis and reference metadata. The metadata explains how the weights were calibrated. It does not select or restrict the live pathway.
 
@@ -45,6 +46,18 @@ result = calculate(
 
 If the file is not released or the live selection is incomplete or invalid, log the specific error and show **Fair Share results are unavailable for this selection**. Do not treat missing emissions as zero, reuse stale output or renormalize over a partial cohort.
 
+### Render the interactive map
+
+Pass the result from `fair_share.calculate()` to the map renderer. Do not pass the weights JSON directly.
+
+```python
+from fair_share_map import render_fair_share_map
+
+map_html = render_fair_share_map(result)
+```
+
+The default view shows the **adjusted relative emissions gap**. Serve the returned document as `text/html` or load it in an iframe with scripts enabled. Render it again when the dashboard selection changes. No changes to the calculation module or weights JSON are required.
+
 ## 3. What the calculation does
 
 | Quantity | Calculation and meaning |
@@ -55,7 +68,7 @@ If the file is not released or the live selection is incomplete or invalid, log 
 | Base and adjusted allowances | `E_i − corresponding reduction assignment`. A negative allowance is valid. |
 | Signed and relative gaps | `allowance − E_i`, and `100 × signed gap / abs(E_i)`. A negative signed gap means emissions exceed that allowance. The relative gap is null when `abs(E_i) ≤ 10⁻⁹ MtCO2e`. |
 
-`summary` has 38 participant rows. `detail` has 114 rows with both weights, allowances, assignments and gaps. `metadata` records the selected scope, weight version and cohort gap. `reconciliation` contains the six allowance totals. Use the same results for the table, plot and map when their design is confirmed. Apply any view filters **after** calculation. The module does not select a chart design or serve UI components.
+`summary` has 38 participant rows. `detail` has 114 rows with both weights, allowances, assignments and gaps. `metadata` records the selected scope, weight version and cohort gap. `reconciliation` contains the six allowance totals. Apply any view filters **after** calculation. The calculation module returns results without rendering the dashboard.
 
 Allowances use the same selected emissions shown in the result. They allocate the cohort's gap rather than assess performance against an independent emissions benchmark. For a positive cohort gap and positive weights, all corresponding participant gaps will be negative. Do not interpret that pattern as independent country-level compliance.
 
