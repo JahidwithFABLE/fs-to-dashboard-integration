@@ -1,4 +1,4 @@
-# Scenathon 2026-27 Fair Share calculation
+# Scenathon 2026–27 Fair Share dashboard integration
 
 Calculate base and adjusted allowances from the selected dashboard emissions and the percentages released by FABLE. The percentages stay fixed across dashboard selections. Emissions, allowances and gaps are recalculated for each selection. The interactive map uses the results of this calculation.
 
@@ -6,19 +6,20 @@ Calculate base and adjusted allowances from the selected dashboard emissions and
 
 | File | Action |
 |---|---|
-| `fair_share.py` | Put this module in the calculation layer. It uses Python 3.10+ with no third-party dependencies. |
-| `fair_share_weights_TEMPLATE.json` | Use this only to inspect the input format. Load the populated `fair_share_weights.json` supplied by FABLE when it is released. |
-| `fair_share_map.py` | Use this in the display layer to render the interactive world map from the calculation result. |
+| [fair_share.py](fair_share.py) | Loads the released weights and calculates allowances and gaps. Requires Python 3.10+ with no third-party dependencies. |
+| [fair_share_weights.json](fair_share_weights.json) | Released production input. Pass this file to `load_weights()`. |
+| [fair_share_map.py](fair_share_map.py) | Renders the calculation result as an interactive world map. |
+| [fair_share_weights_TEMPLATE.json](fair_share_weights_TEMPLATE.json) | Schema example only. The loader rejects it as a production input. |
 
-Call `load_weights()` at startup, and reload when FABLE issues a new version. The file has 37 participant IDs and 111 rows, one per participant and approach. `EQ` is the dashboard code for IEPC. `FS_pct` and `FS_adj_pct` are percentages of the cohort-wide required reduction. Each series sums to 100 per approach. They are not percentages of the budget. Keep the full numeric precision and preserve signed adjusted percentages. The JSON also provides the agreed budget in MtCO2e, the period, the rate basis and reference metadata. The metadata explains how the weights were calibrated. It does not select or restrict the live pathway.
+`scenathon-2026-fs-37-v1` is the released set for 37 participants. It contains 111 participant–approach rows and the agreed cumulative budget of **40,000 MtCO2e for 2026–2050**. The budget is already stored in `budget_mtco2e`. Do not set it separately in the dashboard.
 
-The template has no approved weight values. Its 40,000 MtCO2e budget is provisional and the loader will reject it as a production input. This module uses percentage schema version 2 and does not accept the older fixed-allowance JSON.
+Call `load_weights()` at startup and reload when FABLE issues a new version. `EQ` is the dashboard code for IEPC. `FS_pct` and `FS_adj_pct` are percentages of the cohort-wide required reduction. Each series sums to 100 per approach. They are not percentages of the budget. Keep the full numeric precision and preserve signed adjusted percentages. The reference metadata describes how the weights were calibrated. It does not select or restrict the live pathway. This module uses percentage schema version 2 and does not accept the older fixed-allowance JSON.
 
 ## 2. Pass the selected reporting rows
 
-1. When the dashboard updates, call the backend query that supplies the `REPORTING_AGGREGATE` download for the same Scenathon, date or snapshot, pathway and trade stage. Pass the rows before Excel or CSV export. No workbook or uploaded snapshot is needed in the live workflow.
+1. When the dashboard updates, call the backend query that supplies the `REPORTING_AGGREGATE` download for the same Scenathon, date or snapshot, pathway and trade stage. Pass the rows before Excel or CSV export. The live calculation does not read an Excel workbook or an exported snapshot file.
 2. Fetch the full 37-participant roster for that selection. Do not limit this query to the countries or regions shown in the dashboard. Provide `country`, `year`, `calcallagrico2e` and `calcalllandco2e`. There must be one row per participant for each of **2030, 2035, 2040, 2045 and 2050**, for 185 calculation rows. If the rows also include `pathway_name_default`, `trade_adj`, `scenathon_id` or `snapshot_id`, they must match the selection. `trade_adj=True` means after trade adjustment.
-3. Pass the two emissions fields in **MtCO2e/year**. The module multiplies each annual rate by five years, and keeps signed land-use emissions. It does not count the 2025 opening boundary as another block. Do not multiply by five in the query or convert to Gt before passing the values.
+3. Pass the two emissions fields in **MtCO2e/year**. The module multiplies each annual rate by five years and preserves negative values. It does not count the 2025 opening boundary as another block. Do not multiply by five in the query or convert to Gt before passing the values.
 4. Align the platform codes with the FABLE participant IDs. The module accepts the dashboard codes below and returns the canonical FABLE IDs. Confirm these aliases against `country` in the live export, especially the separate `R_ZAF` region and `ZAF` country. Do not include both the canonical code and its alias as separate rows.
 
 | Dashboard `country` | FABLE JSON ID |
@@ -30,8 +31,8 @@ The template has no approved weight values. Its 40,000 MtCO2e budget is provisio
 ```python
 from fair_share import calculate, load_weights
 
-# Startup. Use the released FABLE file, not the template.
-weights = load_weights(weights_path)
+# Startup. Use the path to the deployed release JSON.
+weights = load_weights("fair_share_weights.json")
 
 # Dashboard refresh. Reuse the live query behind the report download.
 result = calculate(
@@ -75,5 +76,5 @@ Allowances use the same selected emissions shown in the result. They allocate th
 ## 4. Verify before deployment
 
 - Compare a test export and backend rows from the same selection. Verify the code aliases and exactly 185 distinct calculation rows. The Excel snapshot is useful for this check only.
-- Check that all six allowance totals match the budget and that changing pathway or trade stage changes live emissions and derived allowances without changing either weight column. Check that a missing or duplicate block produces the unavailable state.
+- Check that all six allowance totals match the budget. On a pathway or trade-stage change, check that the dashboard fetches the new reporting rows and recalculates the results with the same weights. Check that a missing or duplicate block produces the unavailable state.
 - Where the dashboard shows **Cumulative Net AFOLU (2025–2050)**, compare the calculation to that indicator only after confirming the same cohort, trade stage, GHG coverage and integration rule. Here 2025 is the opening boundary and is excluded as a row. Convert Gt to Mt for the comparison. A displayed target of 40 GtCO2e is 40,000 MtCO2e.
